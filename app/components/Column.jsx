@@ -1,7 +1,7 @@
 "use client";
-import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import Todos from "./Todos";
-import { DndContext, closestCorners } from "@dnd-kit/core";
+import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor } from "@dnd-kit/core";
 import { useState } from "react";
 
 export const Column = () => {
@@ -36,6 +36,14 @@ export const Column = () => {
       return arrayMove(tasks, originalPosition, newPosition);
     });
   };
+
+  const sensors = useSensor(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
   return (
     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
       <div className="bg-purple-400 flex flex-col gap-5 p-2">

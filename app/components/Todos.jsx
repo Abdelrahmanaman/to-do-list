@@ -9,7 +9,7 @@ const Todos = ({task}) => {
   };
     return (
     <div style = {style}
-    ref={setNodeRef} {...listeners} {...attributes} className="flex items-center gap-2 bg-zinc-800 rounded-md p-2">
+    ref={setNodeRef} {...listeners} {...attributes} className="flex items-center gap-2 touch-none bg-zinc-800 rounded-md p-2">
             <input type="checkbox" checked={task.completed} aria-checked={task.completed} id={`todo-${task.id}`} />
             <label htmlFor={`todo-${task.id}`}>{task.task}</label>
     </div>
